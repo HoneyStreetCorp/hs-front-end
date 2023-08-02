@@ -42,11 +42,11 @@ export default function Home() {
             <div className="w-10/12 pt-7">
                 <Question question={question} />
                 <AnswerList question={question} />
-                <div className="flex w-full justify-center pt-6">
-                    <Button onClick={handleClickPrev} outlined={false} disabled={page === 1} size={'xl'}>
+                <div className="flex w-full justify-center gap-4 pt-6">
+                    <Button onClick={handleClickPrev} outlined={false} disabled={page === 1} size={'full'}>
                         이전문제
                     </Button>
-                    <Button onClick={handleClickNext} outlined={false} disabled={page === maxPage} size={'xl'}>
+                    <Button onClick={handleClickNext} outlined={false} disabled={page === maxPage} size={'full'}>
                         다음문제
                     </Button>
                 </div>

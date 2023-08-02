@@ -42,7 +42,8 @@ const buttonConfig: {
     small: 'px-3 py-2',
     medium: 'px-4 py-2',
     large: 'px-5 py-2',
-    xl: 'py-2 w-full',
+    xl: 'px-24 py-4 text-2xl',
+    full: 'py-2 w-full',
 };
 
 export default function Button({
@@ -56,8 +57,10 @@ export default function Button({
     return (
         <>
             <div
-                className={`cursor-pointer rounded-lg border-2 text-center transition-all duration-100 focus:outline-none
-                    ${buttonConfig[size]}  ${outlined ? buttonConfig[color].outline : buttonConfig[color].color}
+                className={`cursor-pointer rounded-lg text-center shadow-black drop-shadow-md transition-all duration-100
+                    focus:outline-none ${outlined ? 'border-2' : ''} ${buttonConfig[size]} ${
+                    outlined ? buttonConfig[color].outline : buttonConfig[color].color
+                }
                     ${buttonConfig[color].bgColor}
                     `}
                 onClick={() => onClick()}
