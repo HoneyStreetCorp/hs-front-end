@@ -29,7 +29,7 @@ export default function Home() {
     //TODO: 추후 react-query로 api 변경
     useEffect(() => {
         (async () => {
-            const res = await fetch('http://localhost:3000/api/question');
+            const res = await fetch('/api/question');
             const data = await res.json();
             setQuestions(data.questions);
         })();
