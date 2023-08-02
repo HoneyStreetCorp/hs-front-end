@@ -1,6 +1,11 @@
+'use client';
+
 import Button from './components/Button';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+    const router = useRouter();
+
     return (
         <main className="">
             <div className="relative mx-auto h-screen max-w-md bg-[#FEF7EC] from-[#f8c6c9] via-[#fff2df] to-[#FFFCE6]">
@@ -11,7 +16,15 @@ export default function Home() {
                             <h3 className="text-neutral-700">- 연애 테스트 100제 -</h3>
                         </div>
                         <img src="/images/geori_gif.gif" alt="main animation" className="mx-auto" />
-                        <Button outlined={false} size={'xl'}>
+
+                        <Button
+                            outlined={false}
+                            size={'xl'}
+                            // TODO:: 조건달아서 라우팅 하도록 수정
+                            onClick={(e: any) => {
+                                router.push('/question');
+                            }}
+                        >
                             시작하기
                         </Button>
                     </div>
