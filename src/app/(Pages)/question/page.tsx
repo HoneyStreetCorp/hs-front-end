@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Question from '../../components/question/Question';
+import QuestionWrapper from '../../components/question/QuestionWrapper';
 import ProgressBar from '@/app/components/question/ProgressBar';
 import Button from '@/app/components/Button';
 import AnswerList from '@/app/components/question/AnswerList';
@@ -40,7 +40,7 @@ export default function Home() {
             <ProgressBar page={page} maxPage={maxPage} />
 
             <div className="w-10/12 pt-7">
-                <Question question={question} />
+                <QuestionWrapper question={question} />
                 <AnswerList question={question} />
                 <div className="flex w-full justify-center gap-4 pt-6">
                     <Button onClick={handleClickPrev} outlined={false} disabled={page === 1} size={'full'}>
