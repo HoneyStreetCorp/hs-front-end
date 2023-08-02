@@ -63,7 +63,7 @@ export default function Button({
                 }
                     ${buttonConfig[color].bgColor}
                     `}
-                onClick={() => onClick()}
+                onClick={e => onClick(e)}
             >
                 {children}
             </div>
