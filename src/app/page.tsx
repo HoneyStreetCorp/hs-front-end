@@ -16,8 +16,47 @@ export default function Home() {
     const goToQuestionPage = () => {
         router.push('/question');
     };
-    const handleClickStart = () => {
-        // post name
+
+    const BASE_URL = 'http://3.139.42.175:80/api/v1';
+
+    const postName = async (name: string) => {
+        const postNameURL = `${BASE_URL}/users?name=${encodeURIComponent(name)}`;
+        try {
+            const response = await fetch(postNameURL, {
+                method: 'POST',
+                headers: {
+                    Accept: '*/*',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to post the name');
+            }
+
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const validateInputValue = (inputValue: string): boolean => {
+        if (inputValue.length < 1) {
+            return false;
+        }
+        return true;
+    };
+
+    const handleClickStart = async () => {
+        if (!validateInputValue(inputValue)) {
+            alert('이름을 입력해주세요');
+            return;
+        }
+
+        const data = await postName(inputValue);
+        const userId = data.name;
+        localStorage.setItem('userId', userId);
+
         goToQuestionPage();
     };
 
