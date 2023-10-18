@@ -2,22 +2,61 @@
 
 import Button from './components/Button';
 import { useRouter } from 'next/navigation';
+import NameInput from './components/NameInput';
 import { useState } from 'react';
 
 export default function Home() {
-    const [userName, setUserName] = useState('');
     const router = useRouter();
+    const [inputValue, setInputValue] = useState('');
+    const handleChangeUpdateInputValue = (e: any) => {
+        setInputValue(e.target.value);
+    };
 
-    const saveUser = async (userName: String) => {
-        if (userName) {
-            const res = await fetch(`http://3.139.42.175/api/v1/users?name=${userName}`, {
+    const goToQuestionPage = () => {
+        router.push('/question');
+    };
+
+    const BASE_URL = 'http://3.139.42.175:80/api/v1';
+
+    const postName = async (name: string) => {
+        const postNameURL = `${BASE_URL}/users?name=${encodeURIComponent(name)}`;
+        try {
+            const response = await fetch(postNameURL, {
                 method: 'POST',
+                headers: {
+                    Accept: '*/*',
+                },
             });
-            const data = await res.json();
-            localStorage.setItem('token', data.token);
-            router.push('/question');
-        } else {
+
+            if (!response.ok) {
+                throw new Error('Failed to post the name');
+            }
+
+            const responseData = await response.json();
+            return responseData;
+        } catch (error) {
+            console.error('Error:', error);
         }
+    };
+
+    const validateInputValue = (inputValue: string): boolean => {
+        if (inputValue.length < 1) {
+            return false;
+        }
+        return true;
+    };
+
+    const handleClickStart = async () => {
+        if (!validateInputValue(inputValue)) {
+            alert('이름을 입력해주세요');
+            return;
+        }
+
+        const data = await postName(inputValue);
+        const userId = data.name;
+        localStorage.setItem('userId', userId);
+
+        goToQuestionPage();
     };
 
     return (
@@ -29,27 +68,9 @@ export default function Home() {
                         <div className="flex flex-col gap-4 text-center">
                             <h3 className="text-font-main text-base">- 연애 테스트 100제 -</h3>
                         </div>
-                        <div className="w-9/12">
-                            <div
-                                style={{ background: '#C3CED8' }}
-                                className="flex justify-center align-middle py-2 px-2 text-2xl cursor-pointer rounded-lg mb-4"
-                            >
-                                <div className="flex flex-col justify-center text-white me-3">NAME</div>
-                                <input
-                                    type="text"
-                                    className="h-16 rounded-lg w-full text-center"
-                                    onChange={e => {
-                                        setUserName(e.target.value);
-                                    }}
-                                />
-                            </div>
-                            <Button
-                                outlined={false}
-                                size={'xl'}
-                                onClick={(e: any) => {
-                                    saveUser(userName);
-                                }}
-                            >
+                        <div>
+                            <NameInput inputValue={inputValue} onChange={handleChangeUpdateInputValue} />
+                            <Button outlined={false} size={'xl'} onClick={handleClickStart}>
                                 시작하기
                             </Button>
                         </div>
