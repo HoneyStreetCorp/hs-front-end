@@ -12,26 +12,25 @@ export default function Home() {
     const [questions, setQuestions] = useState([]);
     const maxPage = questions.length;
     const question = questions[page - 1];
-    const handleClickPrev = () => {
+    const handleClickPrevBtn = () => {
         if (page < 2) {
             return;
         }
         setPage(page - 1);
     };
 
-    const handleClickNext = () => {
+    const handleClickNextBtn = () => {
         if (page >= maxPage) {
             return;
         }
         setPage(page + 1);
     };
 
-    //TODO: 추후 react-query로 api 변경
     useEffect(() => {
         (async () => {
-            const res = await fetch('/api/question');
+            const res = await fetch('http://3.139.42.175/api/v1/questions/1');
             const data = await res.json();
-            setQuestions(data.questions);
+            setQuestions(data);
         })();
     }, []);
 
@@ -43,10 +42,10 @@ export default function Home() {
                 <QuestionWrapper question={question} />
                 <AnswerList question={question} />
                 <div className="flex w-full justify-center gap-4 pt-6">
-                    <Button onClick={handleClickPrev} outlined={false} disabled={page === 1} size={'full'}>
+                    <Button onClick={handleClickPrevBtn} outlined={false} disabled={page === 1} size={'full'}>
                         이전문제
                     </Button>
-                    <Button onClick={handleClickNext} outlined={false} disabled={page === maxPage} size={'full'}>
+                    <Button onClick={handleClickNextBtn} outlined={false} disabled={page === maxPage} size={'full'}>
                         다음문제
                     </Button>
                 </div>

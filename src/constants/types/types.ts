@@ -1,6 +1,6 @@
 export type Question = {
-  questionId: string;
-  title: string;
-  body: string | null;
-  answer: string[];
-}
+    questionId: string;
+    title: string;
+    body: string | null;
+    choices: string[];
+};

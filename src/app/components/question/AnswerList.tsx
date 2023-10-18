@@ -6,13 +6,13 @@ interface Props {
 }
 
 export default function AnswerList({ question }: Props) {
-    const handleClickChoiceAnswer = () => {
-        // choice answer
+    const chooseAnswer = () => {
+        // choose answer
     };
     return (
         <div className="flex flex-col justify-center placeholder-opacity-10">
-            {question?.answer.map((choice, idx) => {
-                return <Answer key={`${idx}` + choice} choice={choice} onClick={handleClickChoiceAnswer} />;
+            {question?.choices.map((choice, idx) => {
+                return <Answer key={`${idx}` + choice} choice={choice} onClick={chooseAnswer} />;
             })}
         </div>
     );
