@@ -2,34 +2,57 @@
 
 import Button from './components/Button';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Home() {
+    const [userName, setUserName] = useState('');
     const router = useRouter();
+
+    const saveUser = async (userName: String) => {
+        if (userName) {
+            const res = await fetch(`http://3.139.42.175/api/v1/users?name=${userName}`, {
+                method: 'POST',
+            });
+            const data = await res.json();
+            localStorage.setItem('token', data.token);
+            router.push('/question');
+        } else {
+        }
+    };
 
     return (
         <main className="">
             <div className="relative mx-auto h-screen max-w-md bg-[#FEF7EC] from-[#f8c6c9] via-[#fff2df] to-[#FFFCE6]">
-                <div className="flex h-full w-full flex-col justify-between bg-gradient-to-t px-9 py-9">
+                <div className="flex h-full flex-col items-center bg-gradient-to-t pt-4">
                     <div className="flex flex-grow flex-col items-center justify-center gap-14">
+                        <img src="/images/geori_logo_img.png" alt="main animation" className="mx-auto" />
                         <div className="flex flex-col gap-4 text-center">
-                            <h1 className="text-5xl text-pink-500 opacity-75">거리</h1>
-                            <h3 className="text-neutral-700">- 연애 테스트 100제 -</h3>
+                            <h3 className="text-font-main text-base">- 연애 테스트 100제 -</h3>
                         </div>
-                        <img src="/images/geori_gif.gif" alt="main animation" className="mx-auto" />
-
-                        <Button
-                            outlined={false}
-                            size={'xl'}
-                            // TODO:: 조건달아서 라우팅 하도록 수정
-                            onClick={(e: any) => {
-                                router.push('/question');
-                            }}
-                        >
-                            시작하기
-                        </Button>
-                    </div>
-                    <div className="mx-auto flex h-20 w-full flex-col justify-center bg-white text-center">
-                        배너광고 모래반지 빵야빵야
+                        <div className="w-9/12">
+                            <div
+                                style={{ background: '#C3CED8' }}
+                                className="flex justify-center align-middle py-2 px-2 text-2xl cursor-pointer rounded-lg mb-4"
+                            >
+                                <div className="flex flex-col justify-center text-white me-3">NAME</div>
+                                <input
+                                    type="text"
+                                    className="h-16 rounded-lg w-full text-center"
+                                    onChange={e => {
+                                        setUserName(e.target.value);
+                                    }}
+                                />
+                            </div>
+                            <Button
+                                outlined={false}
+                                size={'xl'}
+                                onClick={(e: any) => {
+                                    saveUser(userName);
+                                }}
+                            >
+                                시작하기
+                            </Button>
+                        </div>
                     </div>
                 </div>
             </div>
