@@ -10,7 +10,7 @@ export default function ProgressBar({ page, maxPage }: ProgressBarProps) {
             <div className="mt-2 flex h-7 w-full flex-col justify-center">
                 <div className="flex">
                     <div
-                        className={'relative h-2 bg-geori-primary duration-300 ease-in'}
+                        className={'relative h-2 bg-geori-pink duration-300 ease-in'}
                         style={{ width: `${progress}%` }}
                     ></div>
                     <div
@@ -20,7 +20,7 @@ export default function ProgressBar({ page, maxPage }: ProgressBarProps) {
                 </div>
                 <div
                     className={
-                        'absolute h-5 w-10 rounded-md bg-geori-primary text-center leading-5 text-white duration-200 ease-in'
+                        'absolute h-5 w-10 rounded-md bg-geori-pink text-center leading-5 text-white duration-200 ease-in'
                     }
                     style={{ left: progress ? `calc(${progress}% - 1.7rem)` : '0' }}
                 >

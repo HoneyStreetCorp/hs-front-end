@@ -10,7 +10,7 @@ module.exports = {
             backgroundColor: {
                 'geori-primary': '#F8C8CA',
                 'geori-pink': '#F3A3B2',
-                'geori-pink2': '#fbede2',
+                'geori-pink2': '#F4CAD7',
                 'geori-blue': '#CED7E9',
                 'geori-yellow': '#FFFCE6',
                 'geori-warn': 'red',
@@ -25,6 +25,9 @@ module.exports = {
             },
             fontFamily: {
                 KBIZ: ['KBIZHanmaumGothic', 'sans-serif'],
+            },
+            colors: {
+                'font-main': '#757070',
             },
         },
     },
